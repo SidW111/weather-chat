@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Pass through the streaming body & headers
+
     return new NextResponse(response.body, {
       status: response.status,
       headers: {
