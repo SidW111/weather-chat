@@ -1,12 +1,13 @@
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
   try {
     const { messages, threadId } = await req.json();
+
     const response = await fetch(
-      "https://milllons-screeching-vultur.mastra.cloud/apl/agents/weatherAgent/stream",
+      "https://millions-screeching-vultur.mastra.cloud/api/agents/weatherAgent/stream",
       {
         method: "POST",
         headers: {
@@ -30,26 +31,23 @@ export async function POST(req: NextRequest) {
     );
 
     if (!response.ok) {
-      return new NextResponse(
-        JSON.stringify({
-          error: "API error",
-          status: response.status,
-        }),
+      return NextResponse.json(
+        { error: "API error", status: response.status },
         { status: response.status }
       );
     }
 
+    // Pass through the streaming body & headers
     return new NextResponse(response.body, {
+      status: response.status,
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type": response.headers.get("Content-Type") ?? "application/json",
       },
     });
   } catch (error) {
     console.error("API call failed", error);
-    return new NextResponse(
-      JSON.stringify({
-        error: "An unexpected error occured",
-      }),
+    return NextResponse.json(
+      { error: "An unexpected error occurred" },
       { status: 500 }
     );
   }
