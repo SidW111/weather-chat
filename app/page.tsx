@@ -100,32 +100,37 @@ export default function Chat() {
   };
 
   return (
-    <div className="w-full flex flex-col h-screen p-4 bg-gray-100">
-      <div className="flex-1 w-full overflow-y-auto space-y-4 p-4">
-        {messages.map((msg, index) => (
-          <Message key={index} role={msg.role} content={msg.content} />
-        ))}
-        <div ref={messageEndRef} />
+    <div className="w-full  flex flex-col h-screen p-4 bg-white">
+      <div className="w-full max-w-5xl mx-auto flex flex-col h-screen">
+        <div className="flex-1 w-full  overflow-y-auto space-y-4 p-4">
+          {messages.map((msg, index) => (
+            <Message key={index} role={msg.role} content={msg.content} />
+          ))}
+          <div ref={messageEndRef} />
+        </div>
+
+        <div className="mb-10 border rounded-lg shadow-md">
+          <form
+            onSubmit={handleSendMessage}
+            className="flex p-4 bg-white rounded-lg"
+          >
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message..."
+              className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              type="submit"
+              className="ml-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+              disabled={!input.trim()}
+            >
+              Send
+            </button>
+          </form>
+        </div>
       </div>
-      <form
-        onSubmit={handleSendMessage}
-        className="flex p-4 bg-white rounded-lg shadow-md"
-      >
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          className="ml-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-          disabled={!input.trim()}
-        >
-          Send
-        </button>
-      </form>
     </div>
   );
 }
