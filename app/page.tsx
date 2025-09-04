@@ -25,34 +25,39 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <div className="w-full flex flex-col h-screen p-2 md:p-4 bg-white dark:bg-gray-900 dark:text-white">
-      <div className="w-full max-w-5xl mx-auto flex flex-col h-full dark:bg-gray-900 dark:text-white">
-        <div className="flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700">
-          <h1 className="text-lg font-bold">🌤️ Weather Agent</h1>
-          <div className="flex gap-1 items-center">
-            <ExportChat messages={messages}/>
-            <ToggleButton />
-          </div>
-        </div>
-        <div className="flex-1 w-full overflow-y-auto space-y-4 p-4">
-          {messages.map((msg, index) => (
-            <Message
-              key={index}
-              role={msg.role}
-              content={msg.content}
-              timeStamp={msg.timeStamp}
-            />
-          ))}
-          {loading && <Message role="agent" content="" />}
-          <div ref={messageEndRef} />
-        </div>
-
-        <InputForm
-          setLoading={setLoading}
-          setMessages={setMessages}
-          loading={loading}
-        />
+   <div className="w-full flex flex-col h-screen p-2 md:p-4 bg-white dark:bg-gray-900 dark:text-white">
+  <div className="w-full max-w-5xl mx-auto flex flex-col h-full dark:bg-gray-900 dark:text-white">
+    {/* Header */}
+    <div className="flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700">
+      <h1 className="text-lg font-bold">🌤️ Weather Agent</h1>
+      <div className="flex gap-1 items-center">
+        <ExportChat messages={messages}/>
+        <ToggleButton />
       </div>
     </div>
+
+    <div className="flex-1 w-full overflow-y-auto space-y-4 p-4">
+      {messages.map((msg, index) => (
+        <Message
+          key={index}
+          role={msg.role}
+          content={msg.content}
+          timeStamp={msg.timeStamp}
+        />
+      ))}
+      {loading && <Message role="agent" content="" />}
+      <div ref={messageEndRef} />
+    </div>
+
+
+    <div className="sticky bottom-0 bg-white dark:bg-gray-900 pt-2 border-t border-gray-200 dark:border-gray-700">
+      <InputForm
+        setLoading={setLoading}
+        setMessages={setMessages}
+        loading={loading}
+      />
+    </div>
+  </div>
+</div>
   );
 }
