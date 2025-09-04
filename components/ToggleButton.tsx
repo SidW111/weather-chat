@@ -6,6 +6,8 @@ export default function ToggleButton(){
     const {theme,setTheme} = useTheme();
     return <div className="flex justify-end">
           <div
+
+           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className={`
              w-14 h-8 flex items-center rounded-full transition-colors duration-300
             ${
@@ -16,7 +18,7 @@ export default function ToggleButton(){
           `}
           >
             <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+             
               aria-label="Toggle dark mode"
               className={`
               w-7 h-7 flex items-center justify-center rounded-full shadow-md

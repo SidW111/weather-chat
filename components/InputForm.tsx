@@ -30,8 +30,10 @@ export default function InputForm({
   };
 
   const charCount = input.length;
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const trimmedInput = input.trim();
     if (trimmedInput === "") return;
 
@@ -43,7 +45,8 @@ export default function InputForm({
         minute: "2-digit",
       }),
     };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
 
@@ -51,17 +54,12 @@ export default function InputForm({
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [userMessage],
-          threadId: "21",
-        }),
+        body: JSON.stringify({ messages: [userMessage], threadId: "21" }),
       });
 
-      console.log(response);
-
       if (!response.ok || !response.body) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
+        setMessages((prev) => [
+          ...prev,
           { role: "agent", content: "An error occurred. Please try again." },
         ]);
         return;
@@ -69,8 +67,9 @@ export default function InputForm({
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let isFirstChunk = true;
       let agentResponse = "";
+      let isFirstChunk = true;
+
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
@@ -82,11 +81,12 @@ export default function InputForm({
           if (line.startsWith("0:")) {
             let content = line.substring(2).trim();
 
-            if (content.startsWith(`"`) && content.endsWith(`"`)) {
-              content = content.slice(1, -1);
+            // Properly parse JSON string to remove internal quotes
+            try {
+              content = JSON.parse(content);
+            } catch (err) {
+              console.warn("Failed to parse chunk:", content);
             }
-
-            content = content.replace(/\\n/g, "\n");
 
             agentResponse += content;
 
@@ -97,7 +97,6 @@ export default function InputForm({
 
             setMessages((prev) => {
               const updated = [...prev];
-
               if (
                 updated.length &&
                 updated[updated.length - 1].role === "agent"
@@ -120,8 +119,8 @@ export default function InputForm({
       }
     } catch (error) {
       console.error("Streaming failed:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
+      setMessages((prev) => [
+        ...prev,
         { role: "agent", content: "Network or server error." },
       ]);
     } finally {
