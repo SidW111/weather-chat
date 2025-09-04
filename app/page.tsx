@@ -1,9 +1,10 @@
 "use client";
+import ExportChat from "@/components/ExportChat";
 import InputForm from "@/components/InputForm";
 import Message from "@/components/Message";
 import ToggleButton from "@/components/ToggleButton";
 import { useEffect, useRef, useState } from "react";
-interface MessageType {
+export interface MessageType {
   role: "user" | "agent";
   content: string;
   timeStamp?: string;
@@ -26,7 +27,8 @@ export default function Chat() {
       <div className="w-full max-w-5xl mx-auto flex flex-col h-full dark:bg-gray-900 dark:text-white">
         <div className="flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700">
           <h1 className="text-lg font-bold">🌤️ Weather Agent</h1>
-          <div>
+          <div className="flex gap-1 items-center">
+            <ExportChat messages={messages}/>
             <ToggleButton />
           </div>
         </div>
