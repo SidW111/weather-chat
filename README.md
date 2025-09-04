@@ -21,7 +21,7 @@ Step 4: Managed chat state with useState and auto-scroll using useRef.
 
 Step 5: Implemented Dark/Light mode and smooth animations for polish.
 
-Step 6: Added UX improvements — loading states, error handling, input disable during API calls.
+Step 6: Added UX improvements :- loading states, error handling, input disable during API calls.
 
 Step 7: Implemented Export chat functionality.
 
