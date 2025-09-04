@@ -88,7 +88,7 @@ export default function InputForm({
             try {
               content = JSON.parse(content);
             } catch (err) {
-              console.warn("Failed to parse chunk:", content);
+              console.warn("Failed to parse chunk:", content , err);
             }
 
             agentResponse += content;

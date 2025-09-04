@@ -33,7 +33,7 @@ export default function Chat() {
       //   height: safeHeight ?? "100dvh",
       // }}
     >
-      <div className="w-full max-w-5xl mx-auto flex flex-col h-full relative">
+      <div className="w-full max-w-5xl mx-auto flex flex-col h-[100svh] relative">
         <div
           className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center 
                     px-4 py-3 border-b border-gray-300 dark:border-gray-700 
