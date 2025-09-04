@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌤️ Weather Agent Chat Interface 
 
-## Getting Started
+[Weather Agent Chat](https://weather-chat-delta.vercel.app/) here!  
+[GitHub Repository](https://github.com/SidW111/weather-chat)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+A responsive chat application that connects to the **Weather Agent API** and allows users to query weather information in a conversational format.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project was built as part of the **Frontend Engineer Assignment**.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Features Implemented  
 
-## Learn More
+- **Chat Interface**
+  - Message input field with send button  
+  - Display conversation history with auto-scroll  
+  - User messages on the right, agent responses on the left 
 
-To learn more about Next.js, take a look at the following resources:
+- **API Integration**
+  - Integrated with Weather Agent streaming API  
+  - Real-time response handling (streaming)  
+  - Loading state indicators during API calls  
+  - Proper error handling (network/API failures)  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **UI/UX**
+  - Responsive design (mobile-first, works on desktop/tablet/mobile)  
+  - Clean, modern layout with Tailwind CSS  
+  - Enter key support for sending messages  
+  - Disabled input while waiting for API response  
+  - Message timestamps for better context  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Enhancements**
+  - Dark/Light mode toggle 🌙☀️  
+  - Typing indicator for agent responses ⌨️  
+  - Smooth animations & transitions  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tech Stack  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework:** Next.js 15 (App Router)  
+- **Styling:** Tailwind CSS  
+- **API:** Weather Agent Streaming API  
+- **State Management:** React Hooks (`useState`, `useEffect`, `useRef`)  
+
+---
+
+## 📡 API Specification  
+
+**Endpoint:**  
+```http
+POST https://millions-screeching-vultur.mastra.cloud/api/agents/weatherAgent/stream
