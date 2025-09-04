@@ -24,10 +24,13 @@ export default function Chat() {
   }, [messages]);
 
   return (
-<div className="w-full flex flex-col min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white">
-  <div className="w-full max-w-5xl mx-auto flex flex-col h-full">
-    {/* Header */}
-    <div className="sticky top-0 z-10 flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900">
+   <div className="w-full min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white flex flex-col">
+  <div className="w-full max-w-5xl mx-auto flex flex-col h-full relative">
+    
+    {/* Header fixed at top */}
+    <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center 
+                    px-4 py-3 border-b border-gray-300 dark:border-gray-700 
+                    bg-white dark:bg-gray-900 w-full max-w-5xl mx-auto">
       <h1 className="text-lg font-bold text-black dark:text-white">
         🌤️ Weather Agent
       </h1>
@@ -37,8 +40,8 @@ export default function Chat() {
       </div>
     </div>
 
-    {/* Messages area */}
-    <div className="flex-1 overflow-y-auto space-y-4 p-4">
+    {/* Messages scroll area with top/bottom padding for header & input */}
+    <div className="flex-1 overflow-y-auto space-y-4 p-4 pt-16 pb-24">
       {messages.map((msg, index) => (
         <Message
           key={index}
@@ -51,8 +54,9 @@ export default function Chat() {
       <div ref={messageEndRef} />
     </div>
 
-    {/* Input form */}
-    <div className="sticky bottom-0 z-10 border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 md:p-4">
+    {/* Input fixed at bottom */}
+    <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-gray-300 dark:border-gray-700 
+                    bg-white dark:bg-gray-900 p-2 md:p-4 w-full max-w-5xl mx-auto">
       <InputForm
         setLoading={setLoading}
         setMessages={setMessages}
