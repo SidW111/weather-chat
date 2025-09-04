@@ -25,7 +25,7 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <div className="w-full flex flex-col h-[100dvh] p-2 md:p-4 bg-white dark:bg-gray-900 dark:text-white">
+    <div className="w-full flex flex-col min-h-[100dvh] p-2 md:p-4 bg-white dark:bg-gray-900 dark:text-white">
       <div className="w-full max-w-5xl mx-auto flex flex-col h-full dark:bg-gray-900 dark:text-white">
         <div className="flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700">
           <h1 className="text-lg font-bold text-black dark:text-white">🌤️ Weather Agent</h1>
