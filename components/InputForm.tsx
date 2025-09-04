@@ -55,16 +55,17 @@ export default function InputForm({ setMessages, setLoading }: InputFormProps) {
         const lines = chunk.split("\n").filter((line) => line.trim() !== "");
 
         for (const line of lines) {
-          if (line.startsWith("0:")) {
-            let content = line.substring(2).trim();
-
-            if (content.startsWith(`"`) && content.endsWith(`"`)) {
-              content = content.slice(1, -1);
-            }
-
-            content = content.replace(/\\n/g, "\n");
-
-            agentResponse += content;
+            if (line.startsWith("0:")) {
+                let content = line.substring(2).trim();
+                
+                if (content.startsWith(`"`) && content.endsWith(`"`)) {
+                    content = content.slice(1, -1);
+                }
+                
+                content = content.replace(/\\n/g, "\n");
+                
+                agentResponse += content;
+                setLoading(false)
 
             setMessages((prev) => {
               const updated = [...prev];
@@ -75,7 +76,7 @@ export default function InputForm({ setMessages, setLoading }: InputFormProps) {
               ) {
                 updated[updated.length - 1].content = agentResponse;
               } else {
-                updated.push({ role: "agent", content: agentResponse,timeStamp:new Date().toLocaleDateString([],{hour:'2-digit',minute:'2-digit'}) });
+                updated.push({ role: "agent", content: agentResponse,timeStamp:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) });
               }
               return updated;
             });
@@ -94,7 +95,7 @@ export default function InputForm({ setMessages, setLoading }: InputFormProps) {
   };
 
   return (
-    <div className=" border dark:border-none rounded-lg shadow-md dark:shadow-purple-600/50">
+    <div className=" border dark:border-none rounded-lg shadow-md dark:shadow-purple-600/50 ">
       <form
         onSubmit={handleSendMessage}
         className="flex p-4 bg-white dark:bg-gray-900 rounded-lg"
