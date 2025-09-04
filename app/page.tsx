@@ -24,14 +24,14 @@ export default function Chat() {
     scrollToBottom();
   }, [messages]);
 
-  const safeHeight = useKeyboardSafeHeight();
+  // const safeHeight = useKeyboardSafeHeight();
 
   return (
     <div
-      className="w-full min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white flex flex-col overflow-hidden"
-      style={{
-        height: safeHeight ?? "100dvh",
-      }}
+      className="w-full min-h-[100svh] bg-white dark:bg-gray-900 dark:text-white flex flex-col overflow-hidden"
+      // style={{
+      //   height: safeHeight ?? "100dvh",
+      // }}
     >
       <div className="w-full max-w-5xl mx-auto flex flex-col h-full relative">
         <div
