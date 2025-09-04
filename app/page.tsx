@@ -24,22 +24,21 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <div className="w-full flex flex-col min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white">
-  
-  {/* Header (pinned at top) */}
-  <div className="fixed top-0 z-10 w-full bg-white dark:bg-gray-900 ">
-    <div className="max-w-5xl mx-auto flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700">
-      <h1 className="text-lg font-bold text-black dark:text-white">🌤️ Weather Agent</h1>
+<div className="w-full flex flex-col min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white">
+  <div className="w-full max-w-5xl mx-auto flex flex-col h-full">
+    {/* Header */}
+    <div className="sticky top-0 z-10 flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900">
+      <h1 className="text-lg font-bold text-black dark:text-white">
+        🌤️ Weather Agent
+      </h1>
       <div className="flex gap-1 items-center">
         <ExportChat messages={messages} />
         <ToggleButton />
       </div>
     </div>
-  </div>
 
-  {/* Messages (scrollable area) */}
-  <div className="flex-1 overflow-y-auto space-y-4 p-4" style={{ paddingTop: '5rem', paddingBottom: '7rem' }}>
-    <div className="max-w-5xl mx-auto">
+    {/* Messages area */}
+    <div className="flex-1 overflow-y-auto space-y-4 p-4">
       {messages.map((msg, index) => (
         <Message
           key={index}
@@ -51,11 +50,9 @@ export default function Chat() {
       {loading && <Message role="agent" content="" />}
       <div ref={messageEndRef} />
     </div>
-  </div>
 
-  {/* Input bar (always at bottom) */}
-  <div className="fixed bottom-0 z-10 w-full bg-white dark:bg-gray-900 ">
-    <div className="max-w-5xl mx-auto p-2 md:p-4 border-t border-gray-300 dark:border-gray-700">
+    {/* Input form */}
+    <div className="sticky bottom-0 z-10 border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 md:p-4">
       <InputForm
         setLoading={setLoading}
         setMessages={setMessages}
@@ -64,5 +61,6 @@ export default function Chat() {
     </div>
   </div>
 </div>
+
   );
 }
