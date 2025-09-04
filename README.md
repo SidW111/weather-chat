@@ -5,10 +5,31 @@
 [GitHub Repository](https://github.com/SidW111/weather-chat)
 
 
-A responsive chat application that connects to the **Weather Agent API** and allows users to query weather information in a conversational format.  
+A responsive chat application that connects to the **Weather Agent API** and allows users to query weather information in a conversational format.
+
+---
+
+## My Approach
+
+Step 1: Set up a basic Next.js app with Tailwind CSS.
+
+Step 2: Integrated Weather Agent API using fetch with streaming response handling.
+
+Step 3: Built a responsive chat layout with message bubbles.
+
+Step 4: Managed chat state with useState and auto-scroll using useRef.
+
+Step 5: Implemented Dark/Light mode and smooth animations for polish.
+
+Step 6: Added UX improvements — loading states, error handling, input disable during API calls.
+
+Step 7: Implemented Export chat functionality.
+
+Step 8: Implemented Responsiveness for all devices.
 
 
 ---
+
 
 ## 🚀 Features Implemented  
 
@@ -70,8 +91,49 @@ A responsive chat application that connects to the **Weather Agent API** and all
 
 ---
 
-## 📡 API Specification  
+## ⚠️ Assumptions
 
-**Endpoint:**  
-```http
-POST https://millions-screeching-vultur.mastra.cloud/api/agents/weatherAgent/stream
+- API always returns weather-related responses in English.
+
+- Agent responses are text-based only (no media support).
+
+- streaming responses are handled line by line until completion.
+
+---
+
+## 🚧 Known Limitations
+
+No message search functionality yet.
+
+Chat history resets on page reload (not persisted to local storage or DB).
+
+---
+
+## ✨ Built with ❤️ using Next.js, Tailwind, and Weather Agent API
+
+---
+
+## ⚙️ Setup Instructions  
+
+Follow these steps to set up and run the project locally:  
+
+### 1️⃣ Prerequisites  
+- Install [Node.js](https://nodejs.org/) (version 18 or higher recommended)  
+- Install [Git](https://git-scm.com/)  
+
+### 2️⃣ Clone the repository  
+```bash
+git clone https://github.com/your-username/weather-agent-chat.git
+cd weather-agent-chat
+```
+
+### 3️⃣ Install dependencies 
+```bash
+npm install
+```
+
+### 4️⃣ Start the development server
+```bash
+npm run dev
+```
+Now open https://localhost:3000 in your browser
