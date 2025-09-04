@@ -5,6 +5,24 @@ import Message from "@/components/Message";
 import ToggleButton from "@/components/ToggleButton";
 import { useEffect, useRef, useState } from "react";
 
+export function useKeyboardSafeHeight() {
+  const [height, setHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setHeight(window.innerHeight);
+    };
+
+    updateHeight(); // set initial client height
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
+  return height;
+}
+
+
 export interface MessageType {
   role: "user" | "agent";
   content: string;
@@ -14,7 +32,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [loading, setLoading] = useState(false);
   const messageEndRef = useRef<HTMLDivElement>(null);
-  const safeHeight = useKeyboardSafeHeight();
+  
 
   const scrollToBottom = () => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,10 +42,13 @@ export default function Chat() {
     scrollToBottom();
   }, [messages]);
 
+  const safeHeight = useKeyboardSafeHeight();
+
   return (
-    <div
-      className="w-full min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white flex flex-col"
-      style={{ height: safeHeight }}
+    <div className="w-full min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white flex flex-col overflow-hidden" 
+    style={{
+      height:safeHeight ?? '100dvh'
+    }}
     >
       <div className="w-full max-w-5xl mx-auto flex flex-col h-full relative">
         <div
@@ -70,19 +91,4 @@ export default function Chat() {
       </div>
     </div>
   );
-}
-
-function useKeyboardSafeHeight() {
-  const [height, setHeight] = useState(window.innerHeight);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setHeight(window.innerHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return height;
 }
