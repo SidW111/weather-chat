@@ -42,7 +42,7 @@ export default function Chat() {
           <div ref={messageEndRef} />
         </div>
 
-        <InputForm setLoading={setLoading} setMessages={setMessages} />
+        <InputForm setLoading={setLoading} setMessages={setMessages} loading={loading} />
       </div>
     </div>
   );
