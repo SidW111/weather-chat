@@ -20,13 +20,16 @@ export default function InputForm({
   const [input, setInput] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // 👇 refocus input when loading finishes
-  useEffect(() => {
-    if (!loading) {
-      inputRef.current?.focus();
-    }
-  }, [loading]);
+  const CHAR_LIMIT = 150;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const text = e.target.value;
 
+    if (text.length <= CHAR_LIMIT) {
+      setInput(text); // allow typing
+    }
+  };
+
+  const charCount = input.length;
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedInput = input.trim();
@@ -66,6 +69,7 @@ export default function InputForm({
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+      let isFirstChunk = true;
       let agentResponse = "";
       while (true) {
         const { value, done } = await reader.read();
@@ -85,7 +89,11 @@ export default function InputForm({
             content = content.replace(/\\n/g, "\n");
 
             agentResponse += content;
-            setLoading(false);
+
+            if (isFirstChunk) {
+              setLoading(false);
+              isFirstChunk = false;
+            }
 
             setMessages((prev) => {
               const updated = [...prev];
@@ -117,6 +125,7 @@ export default function InputForm({
         { role: "agent", content: "Network or server error." },
       ]);
     } finally {
+      inputRef.current?.focus();
       setLoading(false);
     }
   };
@@ -125,21 +134,34 @@ export default function InputForm({
     <div className=" border dark:border-none rounded-lg shadow-md dark:shadow-purple-600/50 ">
       <form
         onSubmit={handleSendMessage}
-        className="flex p-4 bg-white dark:bg-gray-900 rounded-lg"
+        className="flex p-4 bg-white border border-gray-200 dark:border-gray-700 dark:bg-gray-900 rounded-lg"
       >
-        <input
-        ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={`${loading ? "Please Wait..." : "Type your message..."}`}
-          disabled={loading}
-          className="flex-1 p-2 border dark:border-none  dark:bg-gray-800 rounded-lg focus:outline-none dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-gray-900/50 focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="relative flex-1">
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={handleChange}
+            placeholder={loading ? "Please Wait..." : "Type your message..."}
+            disabled={loading}
+            className="w-full p-2 pr-16 border border-gray-300 dark:border-gray-700 
+                      dark:bg-gray-800 rounded-lg focus:outline-none focus:border-blue-500
+                      dark:focus:border-purple-600/50 disabled:opacity-50 transition-colors duration-200"
+          />
+          <span
+            className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs ${
+              charCount >= CHAR_LIMIT ? "text-red-500" : "text-gray-400"
+            } pointer-events-none`}
+          >
+            {charCount}/{CHAR_LIMIT}
+          </span>
+        </div>
+
         <button
           type="submit"
-          className="ml-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-          disabled={!input.trim() && loading}
+          className="ml-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400  focus:outline-none focus:ring-0 focus:border-blue-500 dark:focus:border-purple-400
+"
+          disabled={!input.trim() || loading}
         >
           Send
         </button>
