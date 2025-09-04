@@ -4,6 +4,8 @@ import InputForm from "@/components/InputForm";
 import Message from "@/components/Message";
 import ToggleButton from "@/components/ToggleButton";
 import { useEffect, useRef, useState } from "react";
+
+
 export interface MessageType {
   role: "user" | "agent";
   content: string;

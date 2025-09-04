@@ -1,5 +1,4 @@
 import { MessageType } from "@/app/page";
-import { BiDownload } from "react-icons/bi";
 import { FaDownload } from "react-icons/fa";
 
 interface ExportChatProps {

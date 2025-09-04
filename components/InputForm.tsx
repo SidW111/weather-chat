@@ -1,4 +1,5 @@
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { IoIosSend } from "react-icons/io";
 
 interface MessageType {
   role: "user" | "agent";
@@ -25,7 +26,7 @@ export default function InputForm({
     const text = e.target.value;
 
     if (text.length <= CHAR_LIMIT) {
-      setInput(text); // allow typing
+      setInput(text); 
     }
   };
 
@@ -62,10 +63,12 @@ export default function InputForm({
           ...prev,
           { role: "agent", content: "An error occurred. Please try again." },
         ]);
+        throw new Error(`server error:${response.status}`);
         return;
       }
 
       const reader = response.body.getReader();
+
       const decoder = new TextDecoder();
       let agentResponse = "";
       let isFirstChunk = true;
@@ -81,7 +84,7 @@ export default function InputForm({
           if (line.startsWith("0:")) {
             let content = line.substring(2).trim();
 
-            // Properly parse JSON string to remove internal quotes
+            //parse JSON string to remove internal quotes
             try {
               content = JSON.parse(content);
             } catch (err) {
@@ -158,11 +161,14 @@ export default function InputForm({
 
         <button
           type="submit"
-          className="ml-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400  focus:outline-none focus:ring-0 focus:border-blue-500 dark:focus:border-purple-400
-"
+          className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-gray-400  focus:outline-none focus:ring-0 focus:border-blue-500 dark:focus:border-purple-400"
           disabled={!input.trim() || loading}
         >
-          Send
+          <div className="flex items-center">
+            <span>
+              <IoIosSend />
+            </span>
+          </div>
         </button>
       </form>
     </div>
