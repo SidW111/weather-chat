@@ -3,7 +3,6 @@ import ExportChat from "@/components/ExportChat";
 import InputForm from "@/components/InputForm";
 import Message from "@/components/Message";
 import ToggleButton from "@/components/ToggleButton";
-import { useKeyboardSafeHeight } from "@/hooks/useKeyboardSafeheight";
 import { useEffect, useRef, useState } from "react";
 
 export interface MessageType {
@@ -35,7 +34,7 @@ export default function Chat() {
     >
       <div className="w-full max-w-5xl mx-auto flex flex-col h-[100svh] relative">
         <div
-          className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center 
+          className="sticky top-0 left-0 right-0 z-10 flex justify-between items-center 
                     px-4 py-3 border-b border-gray-300 dark:border-gray-700 
                     bg-white dark:bg-gray-900 w-full max-w-5xl mx-auto"
         >
@@ -62,7 +61,7 @@ export default function Chat() {
         </div>
 
         <div
-          className="fixed bottom-0 left-0 right-0 z-10 border-t border-gray-300 dark:border-gray-700 
+          className="sticky bottom-0 left-0 right-0 z-10 border-t border-gray-300 dark:border-gray-700 
                     bg-white dark:bg-gray-900 p-2 md:p-4 w-full max-w-5xl mx-auto"
         >
           <InputForm
