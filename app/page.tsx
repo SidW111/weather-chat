@@ -5,7 +5,6 @@ import Message from "@/components/Message";
 import ToggleButton from "@/components/ToggleButton";
 import { useEffect, useRef, useState } from "react";
 
-
 export interface MessageType {
   role: "user" | "agent";
   content: string;
@@ -26,39 +25,38 @@ export default function Chat() {
 
   return (
     <div className="w-full flex flex-col min-h-[100dvh] bg-white dark:bg-gray-900 dark:text-white">
-  <div className="w-full max-w-5xl mx-auto flex flex-col flex-1">
-    
-    {/* Header (always at top) */}
-    <div className="flex-shrink-0 flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900">
-      <h1 className="text-lg font-bold text-black dark:text-white">🌤️ Weather Agent</h1>
-      <div className="flex gap-1 items-center">
-        <ExportChat messages={messages} />
-        <ToggleButton />
+      <div className="w-full max-w-5xl mx-auto flex flex-col flex-1">
+        <div className="flex-shrink-0 flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900">
+          <h1 className="text-lg font-bold text-black dark:text-white">
+            ⛅ Weather Agent 
+          </h1>
+          <div className="flex gap-1 items-center">
+            <ExportChat messages={messages} />
+            <ToggleButton />
+          </div>
+        </div>
+
+        <div className="flex-1 w-full overflow-y-auto space-y-4 p-4">
+          {messages.map((msg, index) => (
+            <Message
+              key={index}
+              role={msg.role}
+              content={msg.content}
+              timeStamp={msg.timeStamp}
+            />
+          ))}
+          {loading && <Message role="agent" content="" />}
+          <div ref={messageEndRef} />
+        </div>
+
+        <div className="flex-shrink-0 border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 md:p-4">
+          <InputForm
+            setLoading={setLoading}
+            setMessages={setMessages}
+            loading={loading}
+          />
+        </div>
       </div>
     </div>
-
-    <div className="flex-1 overflow-y-auto space-y-4 p-4 pb-20">
-      {messages.map((msg, index) => (
-        <Message
-          key={index}
-          role={msg.role}
-          content={msg.content}
-          timeStamp={msg.timeStamp}
-        />
-      ))}
-      {loading && <Message role="agent" content="" />}
-      <div ref={messageEndRef} />
-    </div>
-
-    <div className="sticky bottom-0 left-0 right-0 w-full border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 md:p-4">
-      <InputForm
-        setLoading={setLoading}
-        setMessages={setMessages}
-        loading={loading}
-      />
-    </div>
-  </div>
-</div>
-
   );
 }
